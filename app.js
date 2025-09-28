@@ -11,7 +11,7 @@ const app=express();
 app.use(cookieParser())
 dotenv.config()
 app.use(cors({
-  origin:"http://localhost:5173",
+  origin:"https://streamfrontendp.vercel.app",
   credentials:true
 }))
 app.use(express.json());
