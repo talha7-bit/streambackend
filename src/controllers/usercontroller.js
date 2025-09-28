@@ -46,7 +46,12 @@ try{
    }
    const token=jwt.sign({id:created._id},process.env.TOKEN_SECRET)
     res.status(200)
-    .cookie("jwt",token)
+    .cookie("jwt",token,{
+        httpOnly:true,
+        secure:true,
+        sameSite:"none",
+        maxAge:7*24*60*60*1000
+    })
     .json(
         new Apiresponse(200,created,"user created succesfully")
     )
@@ -77,7 +82,12 @@ export const login=async(req,res,next)=>{
        const token=jwt.sign({_id:existed._id},process.env.TOKEN_SECRET)
 
        res.status(200)
-       .cookie("jwt",token)
+       .cookie("jwt",token,{
+         httpOnly:true,
+        secure:true,
+        sameSite:"none",
+        maxAge:7*24*60*60*1000
+       })
        .json(
         new Apiresponse(200,existed,"user logged in succesfully")
        )
@@ -97,7 +107,12 @@ export const logout=async(req,res,next)=>{
 
 
     res.status(200)
-    .clearCookie("jwt")
+    .clearCookie("jwt",{
+         httpOnly:true,
+        secure:true,
+        sameSite:"none",
+        maxAge:7*24*60*60*1000
+    })
     .json(
         new Apiresponse(200,{existed},"user logged out succesfully")
     )
